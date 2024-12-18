@@ -60,10 +60,20 @@ jobs:
       - name: testing
         run: |
           yarn test
-      - name: Make sure binary is accessible
+      - name: Make sure binary is global accessible
         run: |
           packageDir=${PWD##*/}
           cd ../
           npm install -g ./${packageDir} --ignore-scripts
-          echo "Running script to ensure valid help dispaly"
+          echo "Running script to ensure valid help display"
           get-esm-packages --help
+      - name: Make sure binary is yarn accessible
+        run: |
+          packageDir=${PWD##*/}
+          cd ../
+          mkdir yarn-test
+          cd yarn-test
+          yarn init
+          yarn add --dev ../${packageDir}
+          echo "Running script to ensure valid help display"
+          yarn get-esm-packages --help
