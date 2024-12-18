@@ -57,7 +57,7 @@ async function main(options: CliOpts) {
 export function writeESMModuleOutput(packages: string[], file: string) {
     writeFileSync(file, JSON.stringify({
         description: `This is a programmatically created file via ${process.argv.join(' ')}`,
-        packages,
+		packages: packages.sort(),
     } as EsmPackagesFile, null, 4))
 }
 
