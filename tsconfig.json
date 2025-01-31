@@ -22,7 +22,7 @@
 		// IMPORTANT - SWC controls everything else for module building - so we only emit declarations here
 		"emitDeclarationOnly": true,
 		"isolatedModules": true,
-		"types": ["node"]
+		"types": ["node", "jest"]
 	},
 	"exclude": [
 		"jest.config.ts",
