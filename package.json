@@ -24,8 +24,7 @@
 		"test": "jest --passWithNoTests",
 		"ts-run": "./bin/ts-run.sh",
 		"release": "yarn semantic-release",
-		"get-esm-packages": "yarn ts-run src/bin/get-esm-packages.ts",
-		"prepare": "husky"
+		"get-esm-packages": "yarn ts-run src/bin/get-esm-packages.ts"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
