@@ -50,8 +50,8 @@ interface VisitReturn {
 }
 
 interface PkgInfo {
-		packageJsonPath: string;
-		isModule: boolean;
+	packageJsonPath: string;
+	isModule: boolean;
 }
 
 /**
@@ -83,14 +83,15 @@ export async function getESMPackages(pkgGraph: PackageGraph) {
 		if (!jsonPath) {
 			return [{}, true];
 		}
-		let pkgInfos: PkgInfo[] | undefined = packagePathsMap[currentNode.value.name]
-		if  (pkgInfos) {
+		let pkgInfos: PkgInfo[] | undefined =
+			packagePathsMap[currentNode.value.name];
+		if (pkgInfos) {
 			if (pkgInfos.some((info) => info.packageJsonPath === jsonPath)) {
 				return [{}, false];
 			}
 		} else {
-			pkgInfos = [] as PkgInfo[]
-			packagePathsMap[currentNode.value.name] = pkgInfos
+			pkgInfos = [] as PkgInfo[];
+			packagePathsMap[currentNode.value.name] = pkgInfos;
 		}
 
 		const contents = await readFile(jsonPath);
@@ -111,13 +112,15 @@ export async function getESMPackages(pkgGraph: PackageGraph) {
 	// Iterate the packages and resolve all non-optional packages and existing optionals
 	await pkgGraph.topDownVisitAsync(resolvePackageJsons);
 
-	return Array.from(Object.keys(packagePathsMap).reduce((mods, p) => {
-		const infos = packagePathsMap[p];
-		infos.forEach((info) => {
-			if (info.isModule) {
-				mods.add(p);
-			}
-		})
-		return mods;
-	}, new Set<string>()));
+	return Array.from(
+		Object.keys(packagePathsMap).reduce((mods, p) => {
+			const infos = packagePathsMap[p];
+			infos.forEach((info) => {
+				if (info.isModule) {
+					mods.add(p);
+				}
+			});
+			return mods;
+		}, new Set<string>()),
+	);
 }
