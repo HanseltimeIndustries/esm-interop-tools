@@ -109,3 +109,7 @@ export default async () => {
     }
 }
 ```
+
+# TODO: Unit/Integration testing
+
+This tool has been tested via use in various projects, but would benefit from integration tests with a list of known dependendencies, etc.

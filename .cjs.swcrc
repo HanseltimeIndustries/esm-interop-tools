@@ -5,5 +5,5 @@
     "module": {
         // Need this since some external dependencies will require dynamic imports
         "lazy": true
-    }
+    },
 }
