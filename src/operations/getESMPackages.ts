@@ -49,17 +49,20 @@ interface VisitReturn {
 	};
 }
 
+interface PkgInfo {
+		packageJsonPath: string;
+		isModule: boolean;
+}
+
 /**
  * Returns the esm packages from a PackageGraph - Assumes we can read package.json (may not work with yarn plug'n'play)
  * @param pkgGraph
  * @returns
  */
 export async function getESMPackages(pkgGraph: PackageGraph) {
-	const packagePathMap: {
-		[pkgName: string]: {
-			packageJsonPath: string;
-			isModule: boolean;
-		};
+	const packagePathsMap: {
+		// Since packages can be multiply referenced via nested modules, we can have multiple of these
+		[pkgName: string]: PkgInfo[];
 	} = {};
 	// We need to resolve the packageJsons and are fine with optional dependencies missing since we can't tell if we need them
 	async function resolvePackageJsons(
@@ -80,12 +83,22 @@ export async function getESMPackages(pkgGraph: PackageGraph) {
 		if (!jsonPath) {
 			return [{}, true];
 		}
+		let pkgInfos: PkgInfo[] | undefined = packagePathsMap[currentNode.value.name]
+		if  (pkgInfos) {
+			if (pkgInfos.some((info) => info.packageJsonPath === jsonPath)) {
+				return [{}, false];
+			}
+		} else {
+			pkgInfos = [] as PkgInfo[]
+			packagePathsMap[currentNode.value.name] = pkgInfos
+		}
+
 		const contents = await readFile(jsonPath);
 		const json = JSON.parse(contents.toString());
-		packagePathMap[currentNode.value.name] = {
+		pkgInfos.push({
 			packageJsonPath: jsonPath,
 			isModule: json.type === "module",
-		};
+		});
 		return [
 			{
 				optionalDependencies: json.optionalDependencies,
@@ -98,11 +111,13 @@ export async function getESMPackages(pkgGraph: PackageGraph) {
 	// Iterate the packages and resolve all non-optional packages and existing optionals
 	await pkgGraph.topDownVisitAsync(resolvePackageJsons);
 
-	return Object.keys(packagePathMap).reduce((mods, p) => {
-		const info = packagePathMap[p];
-		if (info.isModule) {
-			mods.push(p);
-		}
+	return Array.from(Object.keys(packagePathsMap).reduce((mods, p) => {
+		const infos = packagePathsMap[p];
+		infos.forEach((info) => {
+			if (info.isModule) {
+				mods.add(p);
+			}
+		})
 		return mods;
-	}, [] as string[]);
+	}, new Set<string>()));
 }
