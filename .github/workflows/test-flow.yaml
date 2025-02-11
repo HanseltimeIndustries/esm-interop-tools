@@ -21,7 +21,7 @@ jobs:
         node-version: [18.x, 20.x]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       # TODO: caching this action would accelerate the run
       - name: corepack
         run: |
@@ -34,8 +34,6 @@ jobs:
       - name: install
         run: |
           yarn install --immutable
-          # Hack due to yarn maintainers not making their reformatting optional: https://github.com/yarnpkg/berry/discussions/2636
-          git reset --hard HEAD
       - name: commit-linting
         run: |
           if [[ "${{ github.base_ref }}" != "" ]]; then

@@ -33,7 +33,8 @@ jobs:
       - name: Enable yarn Berry
         run: corepack enable
       - name: Install
-        run: yarn install --immutable
+        run: |
+          yarn install --immutable
       - name: Build
         run: yarn build
       - name: Release
