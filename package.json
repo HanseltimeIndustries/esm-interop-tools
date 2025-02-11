@@ -12,7 +12,10 @@
 			"types": "./dist/types/index.d.ts"
 		}
 	},
-	"files": ["dist", "README.md"],
+	"files": [
+		"dist",
+		"README.md"
+	],
 	"scripts": {
 		"build:esm": "tswc -- src -d dist/esm --config-file .esm.swcrc --strip-leading-paths --out-file-extension mjs",
 		"build:cjs": "tswc -- src -d dist/cjs --config-file .cjs.swcrc --strip-leading-paths",
@@ -56,5 +59,6 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"packageManager": "yarn@4.5.3"
+	"packageManager": "yarn@4.5.3",
+	"version": "1.0.0"
 }
