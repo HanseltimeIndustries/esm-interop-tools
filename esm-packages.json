@@ -33,6 +33,7 @@
         "@sec-ant/readable-stream",
         "@semantic-release/commit-analyzer",
         "@semantic-release/error",
+        "@semantic-release/exec",
         "@semantic-release/github",
         "@semantic-release/npm",
         "@semantic-release/release-notes-generator",
