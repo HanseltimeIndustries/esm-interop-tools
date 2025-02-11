@@ -37,6 +37,8 @@ interface CliOpts {
 	quiet: boolean;
 }
 
+const commandStr = `get-esm-packages ${process.argv.slice(2).join(" ")}`;
+
 async function main(options: CliOpts) {
 	const {
 		pkgManager,
@@ -80,7 +82,7 @@ export function writeESMModuleOutput(packages: string[], file: string) {
 		file,
 		JSON.stringify(
 			{
-				description: `This is a programmatically created file via ${process.argv.join(" ")}`,
+				description: `This is a programmatically created file via ${commandStr}`,
 				packages: packages,
 			} as EsmPackagesFile,
 			null,
