@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/HanseltimeIndustries/esm-interop-tools/compare/v1.0.0...v1.0.1) (2025-02-11)
+
+
+### Bug Fixes
+
+* use conistent command naming ([84ff103](https://github.com/HanseltimeIndustries/esm-interop-tools/commit/84ff1030b53b0b28f662db668defb7c33427e5d1))
+
 # 1.0.0 (2025-02-11)
 
 
