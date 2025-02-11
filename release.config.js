@@ -19,6 +19,13 @@ module.exports = {
 		"@semantic-release/release-notes-generator",
 		"@semantic-release/changelog",
 		"@semantic-release/npm",
+		// format any changed files
+		[
+			"@semantic-release/exec",
+			{
+				prepareCmd: "yarn format --fix",
+			},
+		],
 		[
 			"@semantic-release/git",
 			{
