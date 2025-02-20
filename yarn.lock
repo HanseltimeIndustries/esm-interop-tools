@@ -900,7 +900,7 @@ __metadata:
     tsx: "npm:^4.19.2"
     typescript: "npm:^5.0.0"
   bin:
-    get-esm-packages: dist/bin/get-esm-packages.js
+    get-esm-packages: dist/esm/bin/get-esm-packages.mjs
   languageName: unknown
   linkType: soft
 
