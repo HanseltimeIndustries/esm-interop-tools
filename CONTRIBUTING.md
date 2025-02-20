@@ -11,6 +11,7 @@ make sure to be respectful of fellow users and developers.
     - [Commit syntax](#commit-syntax)
     - [Development Testing](#development-testing)
       - [Unit tests](#unit-tests)
+      - [Package Tests](#package-tests)
       - [Linting](#linting)
       - [Typescript](#typescript)
       - [Optional - Testing built script locally](#optional---testing-built-script-locally)
@@ -78,6 +79,16 @@ yarn test import-resources-to-stack
 ```
 
 Our unit tests should mock all outbound client libraries and simply focus program logical paths.
+
+#### Package Tests
+
+In order to make sure our library works in different package environments, we use [pkgtest](https://hanseltimeindustries.github.io/pkgtest/latest/).  For the most part, you can just run it to see if your changes have adversely affected how other projects would use this package.
+
+```shell
+yarn pkgtest
+```
+
+Please see the pkgtest documentation for a deeper dive if there are issues.
 
 #### Linting
 

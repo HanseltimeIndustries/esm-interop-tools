@@ -3,20 +3,21 @@
 	"main": "dist/cjs/index.js",
 	"types": "dist/types/index.d.ts",
 	"bin": {
-		"get-esm-packages": "dist/bin/get-esm-packages.js"
+		"get-esm-packages": "dist/esm/bin/get-esm-packages.mjs"
 	},
 	"exports": {
 		".": {
 			"require": "./dist/cjs/index.js",
 			"import": "./dist/esm/index.mjs",
-			"types": "./dist/types/index.d.ts"
+			"types": "./dist/types/index.d.ts",
+			"default": "./dist/esm/index.js"
 		}
 	},
 	"files": ["dist", "README.md"],
 	"scripts": {
 		"build:esm": "tswc -- src -d dist/esm --config-file .esm.swcrc --strip-leading-paths --out-file-extension mjs",
 		"build:cjs": "tswc -- src -d dist/cjs --config-file .cjs.swcrc --strip-leading-paths",
-		"build:bin": "rspack build",
+		"build:bin": "node ./bin-build.js",
 		"build:types": "tsc",
 		"build": "yarn build:types && yarn build:esm && yarn build:cjs && yarn build:bin",
 		"lint": "biome lint",
@@ -29,13 +30,14 @@
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@commitlint/config-angular": "^19.6.0",
+		"@hanseltime/pkgtest": "^1.0.0",
 		"@hanseltime/swc-plugin-node-globals-inject": "^1.0.0",
 		"@rspack/cli": "^1.1.6",
 		"@rspack/core": "^1.1.6",
 		"@semantic-release/changelog": "^6.0.3",
 		"@semantic-release/git": "^10.0.1",
-		"@swc/cli": "^0.5.2",
-		"@swc/core": "^1.10.1",
+		"@swc/cli": "^0.6.0",
+		"@swc/core": "^1.10.18",
 		"@types/jest": "^29.5.14",
 		"@types/node": "^18",
 		"commitlint": "^19.6.1",

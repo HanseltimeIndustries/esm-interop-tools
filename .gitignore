@@ -19,3 +19,4 @@
 # tswc creates temporary config files
 .swcrc_from_tsconfig*
 .swc/
+tmp-tsconfig/*
