@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/HanseltimeIndustries/esm-interop-tools/compare/v1.0.1...v1.0.2) (2025-02-20)
+
+
+### Bug Fixes
+
+* esm full path support and simplified bins ([8eb47d1](https://github.com/HanseltimeIndustries/esm-interop-tools/commit/8eb47d15f05e6d1eac7a85650585482ff4a0f3b4))
+
 ## [1.0.1](https://github.com/HanseltimeIndustries/esm-interop-tools/compare/v1.0.0...v1.0.1) (2025-02-11)
 
 
