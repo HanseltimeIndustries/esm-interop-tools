@@ -7,6 +7,7 @@ import {
 	PackageInfoKey,
 } from "../packageGraphs";
 import { join } from "path";
+import { fsOpenFiles } from "systeminformation";
 
 function resolvePkgPath(
 	pkgDir: string,
@@ -54,6 +55,35 @@ interface PkgInfo {
 	isModule: boolean;
 }
 
+class FileReadBatcher {
+	private batch: Promise<void>[] = [];
+	private semaphore: Promise<void> | undefined;
+	readonly max: number;
+	constructor(max: number) {
+		this.max = max;
+	}
+
+	async read(file: string): Promise<Buffer> {
+		do {
+			if (this.semaphore) {
+				await this.semaphore;
+			}
+		} while (this.batch.length > this.max);
+
+		const read = readFile(file);
+		this.batch.push(read.then(() => {}));
+		if (this.batch.length === this.max) {
+			this.semaphore = (async () => {
+				await Promise.all(this.batch);
+				this.semaphore = undefined;
+				this.batch.length = 0;
+			})();
+		}
+
+		return await read;
+	}
+}
+
 /**
  * Returns the esm packages from a PackageGraph - Assumes we can read package.json (may not work with yarn plug'n'play)
  * @param pkgGraph
@@ -64,6 +94,21 @@ export async function getESMPackages(pkgGraph: PackageGraph) {
 		// Since packages can be multiply referenced via nested modules, we can have multiple of these
 		[pkgName: string]: PkgInfo[];
 	} = {};
+	// Types are wrong
+	let { available } = (await fsOpenFiles()) as unknown as { available: number };
+
+	if (available == null) {
+		available = 10000;
+	} else {
+		available = available > 10000 ? 10000 : available;
+	}
+	if (available === 0) {
+		throw new Error(
+			"There are 0 available file handles to open so getESMPackages cannot read package.json's",
+		);
+	}
+	const fileReadBatcher = new FileReadBatcher(available);
+
 	// We need to resolve the packageJsons and are fine with optional dependencies missing since we can't tell if we need them
 	async function resolvePackageJsons(
 		currentNode: Node<PackageInfo, PackageInfoKey>,
@@ -94,7 +139,7 @@ export async function getESMPackages(pkgGraph: PackageGraph) {
 			packagePathsMap[currentNode.value.name] = pkgInfos;
 		}
 
-		const contents = await readFile(jsonPath);
+		const contents = await fileReadBatcher.read(jsonPath);
 		const json = JSON.parse(contents.toString());
 		pkgInfos.push({
 			packageJsonPath: jsonPath,

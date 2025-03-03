@@ -886,7 +886,7 @@ __metadata:
     "@swc/cli": "npm:^0.6.0"
     "@swc/core": "npm:^1.10.18"
     "@types/jest": "npm:^29.5.14"
-    "@types/node": "npm:^18"
+    "@types/node": "npm:^20"
     commander: "npm:^12.1.0"
     commitlint: "npm:^19.6.1"
     husky: "npm:^9.1.7"
@@ -894,6 +894,7 @@ __metadata:
     jest-chain-transform: "npm:^0.0.8"
     resolve-package-path: "npm:^4.0.3"
     semantic-release: "npm:^24.2.0"
+    systeminformation: "npm:^5.25.11"
     ts-jest: "npm:^29.2.5"
     ts-node: "npm:^10.9.2"
     tswc: "npm:^1.4.0"
@@ -3009,12 +3010,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18":
-  version: 18.19.68
-  resolution: "@types/node@npm:18.19.68"
+"@types/node@npm:^20":
+  version: 20.17.23
+  resolution: "@types/node@npm:20.17.23"
   dependencies:
-    undici-types: "npm:~5.26.4"
-  checksum: 10/024a4a8eeca21c0d1eaa575036dbc44528eae180821de71b77868ddc24d18032b988582046db4f7ea2643970a5169d790e1884153472145de07d629bc2ce2ec6
+    undici-types: "npm:~6.19.2"
+  checksum: 10/162fee54e25b464de91da1c0744f421c0d6301925893f5d8e48effeae321d343c87fa7f8eefc53384bf86cae3974bb1740830d4b62754383b18f2d3dff4e1fe9
   languageName: node
   linkType: hard
 
@@ -10065,6 +10066,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"systeminformation@npm:^5.25.11":
+  version: 5.25.11
+  resolution: "systeminformation@npm:5.25.11"
+  bin:
+    systeminformation: lib/cli.js
+  checksum: 10/9a43bb8991ac07a0bcf3f9002c32e9f36a1100b2f620049c4c3dc24f74556c681b1e4552dc27581af32a842540cd42c1bb085e842b0c325273fb558b51c7159f
+  conditions: (os=darwin | os=linux | os=win32 | os=freebsd | os=openbsd | os=netbsd | os=sunos | os=android)
+  languageName: node
+  linkType: hard
+
 "tar-stream@npm:^3.1.7":
   version: 3.1.7
   resolution: "tar-stream@npm:3.1.7"
@@ -10532,10 +10543,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici-types@npm:~5.26.4":
-  version: 5.26.5
-  resolution: "undici-types@npm:5.26.5"
-  checksum: 10/0097779d94bc0fd26f0418b3a05472410408877279141ded2bd449167be1aed7ea5b76f756562cb3586a07f251b90799bab22d9019ceba49c037c76445f7cddd
+"undici-types@npm:~6.19.2":
+  version: 6.19.8
+  resolution: "undici-types@npm:6.19.8"
+  checksum: 10/cf0b48ed4fc99baf56584afa91aaffa5010c268b8842f62e02f752df209e3dea138b372a60a963b3b2576ed932f32329ce7ddb9cb5f27a6c83040d8cd74b7a70
   languageName: node
   linkType: hard
 
