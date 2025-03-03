@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/HanseltimeIndustries/esm-interop-tools/compare/v1.0.2...v1.0.3) (2025-03-03)
+
+
+### Bug Fixes
+
+* handling max open files ([318992b](https://github.com/HanseltimeIndustries/esm-interop-tools/commit/318992bea18086df6588a6f95c5049b57865808d))
+
 ## [1.0.2](https://github.com/HanseltimeIndustries/esm-interop-tools/compare/v1.0.1...v1.0.2) (2025-02-20)
 
 
