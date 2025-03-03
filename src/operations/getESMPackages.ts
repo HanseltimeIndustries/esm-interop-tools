@@ -71,7 +71,11 @@ class FileReadBatcher {
 		} while (this.batch.length > this.max);
 
 		const read = readFile(file);
-		this.batch.push(read.then(() => {}));
+		this.batch.push(
+			read.then(() => {
+				return undefined;
+			}),
+		);
 		if (this.batch.length === this.max) {
 			this.semaphore = (async () => {
 				await Promise.all(this.batch);
@@ -95,12 +99,14 @@ export async function getESMPackages(pkgGraph: PackageGraph) {
 		[pkgName: string]: PkgInfo[];
 	} = {};
 	// Types are wrong
-	let { available } = (await fsOpenFiles()) as unknown as { available: number };
-
-	if (available == null) {
-		available = 10000;
+	const openInfo = (await fsOpenFiles()) as unknown as {
+		available: number;
+	} | null;
+	let available: number;
+	if (!openInfo || openInfo.available == null) {
+		available = 400;
 	} else {
-		available = available > 10000 ? 10000 : available;
+		available = openInfo.available > 400 ? 400 : openInfo.available;
 	}
 	if (available === 0) {
 		throw new Error(
