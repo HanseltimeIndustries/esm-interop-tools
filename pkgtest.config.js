@@ -35,7 +35,7 @@ const baseEntry = {
 	},
 	binTests: {}, // Just run default --help tests for now
 	moduleTypes: ["commonjs", "esm"],
-	timeout: 3000, // ts-node on yarn-berry takes about 2s (kinda pretty high compared to all the others)
+	timeout: 5000, // ts-node on yarn-berry takes about 2s (kinda pretty high compared to all the others)
 };
 
 // Yarn plug'n'play does not play well with local installs and ts-node.  We'll wait for pkgtest to find a fix
