@@ -115,7 +115,7 @@ export class Graph<
 	 * @param visit
 	 * @param firstArrivalOnly - if set to true, we are saying that we do not care about from where we get to the node, just the first arrival matters
 	 *                           This will depend on your visit function, since the visit function can pass parent -> child info that may change based on the node
-	 *                           it is coming from
+	 *                           it is coming from - note guestbook is deprecated due to needing to late check optional dependencies
 	 */
 	async topDownVisitAsync<R>(
 		visit: VisitFunction<Node<T, NodeKey>, R>,
