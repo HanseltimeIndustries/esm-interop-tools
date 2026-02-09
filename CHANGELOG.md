@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/HanseltimeIndustries/esm-interop-tools/compare/v1.0.3...v1.0.4) (2026-02-09)
+
+
+### Bug Fixes
+
+* cache revisit file not found error ([0c3df63](https://github.com/HanseltimeIndustries/esm-interop-tools/commit/0c3df631c2935da00ec2a3901a9b5f601800f612))
+
 ## [1.0.3](https://github.com/HanseltimeIndustries/esm-interop-tools/compare/v1.0.2...v1.0.3) (2025-03-03)
 
 
