@@ -53,6 +53,9 @@ interface VisitReturn {
 interface PkgInfo {
 	packageJsonPath: string;
 	isModule: boolean;
+	optionalDependencies?: {
+		[dep: string]: string;
+	};
 }
 
 class FileReadBatcher {
@@ -137,6 +140,19 @@ export async function getESMPackages(pkgGraph: PackageGraph) {
 		let pkgInfos: PkgInfo[] | undefined =
 			packagePathsMap[currentNode.value.name];
 		if (pkgInfos) {
+			// Cache layer to speed up processing when we've already see a package
+			const pkgInfo = pkgInfos.find(
+				(info) => info.packageJsonPath === jsonPath,
+			);
+			if (pkgInfo) {
+				return [
+					{
+						optionalDependencies: pkgInfo.optionalDependencies,
+						parentPkgPath: pkgInfo.packageJsonPath,
+					},
+					false,
+				];
+			}
 			if (pkgInfos.some((info) => info.packageJsonPath === jsonPath)) {
 				return [{}, false];
 			}
@@ -150,6 +166,7 @@ export async function getESMPackages(pkgGraph: PackageGraph) {
 		pkgInfos.push({
 			packageJsonPath: jsonPath,
 			isModule: json.type === "module",
+			optionalDependencies: json.optionalDependencies,
 		});
 		return [
 			{
