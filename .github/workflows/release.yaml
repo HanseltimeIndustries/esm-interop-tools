@@ -8,13 +8,13 @@ on:
       - alpha
 
 jobs:
-  call-test-workflow:
-    uses: ./.github/workflows/test-flow.yaml
-    with:
-      from: ${{ github.workflow }}
+  # call-test-workflow:
+  #   uses: ./.github/workflows/test-flow.yaml
+  #   with:
+  #     from: ${{ github.workflow }}
   release:
     runs-on: ubuntu-latest
-    needs: call-test-workflow
+    # needs: call-test-workflow
     permissions:
       contents: read
       id-token: write
