@@ -5,6 +5,10 @@
 	"bin": {
 		"get-esm-packages": "dist/esm/bin/get-esm-packages.mjs"
 	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/HanseltimeIndustries/esm-interop-tools.git"
+	},
 	"exports": {
 		".": {
 			"require": "./dist/cjs/index.js",
